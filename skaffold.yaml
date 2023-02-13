@@ -1,0 +1,21 @@
+apiVersion: skaffold/v3alpha1
+kind: Config
+build:
+  local:
+      push: false
+  artifacts:
+    - image: vonrims/nextjs/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+        - src: 'src/**/*.js'
+          dest: .
+
+
+manifests:
+  rawYaml:
+  - ./infra/k8s/*
+deploy:
+  kubectl: {}
