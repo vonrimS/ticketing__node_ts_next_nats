@@ -1,5 +1,11 @@
 import mongoose from 'mongoose';
 
+// Describes required props for new User creation
+interface UserAttrs {
+    email: string;
+    password: string;
+}
+
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -13,6 +19,10 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+const buildUser = (attrs: UserAttrs) => {
+    return new User(attrs);
+};
 
 export { User };
 
