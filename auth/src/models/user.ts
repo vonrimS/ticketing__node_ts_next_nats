@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
+
 
 // Describes required props for new User creation
 interface UserAttrs {
@@ -12,7 +14,7 @@ interface UserModel extends mongoose.Model<UserDoc> {
 }
 
 // Describes the props that a User Document has
-interface UserDoc extends mongoose.Document{
+interface UserDoc extends mongoose.Document {
     email: string;
     password: string;
     // createdAt: string;
