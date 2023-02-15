@@ -1,3 +1,4 @@
+import { BadRequestError } from './../errors/bad-request-error';
 import { Request, Response, NextFunction } from "express";
 import { DatabaseConnectionError } from "../errors/database-connection-error";
 import { NotFoundError } from "../errors/not-found-error";
@@ -16,6 +17,9 @@ export const errorHandler = (
         return res.status(err.statusCode).send({ errors: err.serializeErrors() });
     }
     if (err instanceof NotFoundError) {
+        return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+    }
+    if (err instanceof BadRequestError) {
         return res.status(err.statusCode).send({ errors: err.serializeErrors() });
     }
     res.status(400).send({
