@@ -1,6 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
+import mongoose from 'mongoose';
 
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
@@ -18,18 +19,25 @@ app.use(signInRouter);
 app.use(signOutRouter);
 app.use(signUpRouter);
 
-// app.all('*', () => {
-//     throw new NotFoundError();
-// });
 
-app.all('*', async (req, res, next) => {
+app.all('*', async (req, res) => {
     // next(new NotFoundError());
     throw new NotFoundError();
 });
 
 app.use(errorHandler);
 
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth')
+        console.log('...connected to mongo db in [auth] service');
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 app.listen(3000, () => {
     console.log('[auth] service listening on port 3000');
 });
+
+start();

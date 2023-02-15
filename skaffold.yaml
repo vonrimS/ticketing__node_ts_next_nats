@@ -4,7 +4,7 @@ build:
   local:
       push: false
   artifacts:
-    - image: vonrims/nextjs/auth
+    - image: vonrims/ticketing_auth
       context: auth
       docker:
         dockerfile: Dockerfile
