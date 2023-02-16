@@ -15,7 +15,6 @@ import { NotFoundError } from './errors/not-found-error';
 const app = express();
 app.set('trust proxy', true);
 app.use(json());
-
 app.use(
     cookieSession({
         signed: false,
@@ -37,6 +36,9 @@ app.all('*', async (req, res) => {
 app.use(errorHandler);
 
 const start = async () => {
+    if (!process.env.JWT_KEY) {
+        throw new Error('JWT_KEY must be defined');
+    }
     try {
         await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
         console.log('...connected to mongo db in [auth] service');
@@ -46,7 +48,7 @@ const start = async () => {
 };
 
 app.listen(3000, () => {
-    console.log('[auth] service listening on port 3000___');
+    console.log('[auth] service listening on port 3000');
 });
 
 start();
