@@ -11,5 +11,14 @@ it('responds with details about the current user', async () => {
         .expect(200);
 
     expect(response.body.currentUser.email).toEqual('test@test.com');
+});
 
+it('responds with null if not authenticated', async () => {
+    const response = await request(app)
+        .get('/api/users/currentuser')
+        .send()
+        .expect(401);
+    console.log(response.body.currentUser);
+
+    expect(response.body.currentUser).toEqual(undefined);
 });
