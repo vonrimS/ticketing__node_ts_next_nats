@@ -12,6 +12,14 @@ build:
         manual:
         - src: 'src/**/*.js'
           dest: .
+    - image: vonrims/ticketing_client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+        - src: '**/*.js'
+          dest: .
 
 
 manifests:
