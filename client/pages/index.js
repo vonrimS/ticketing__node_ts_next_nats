@@ -1,45 +1,18 @@
-import axios from 'axios';
-
+import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser }) => {
-    //   console.log(currentUser);
-    //   axios.get('/api/users/currentuser').catch((err) => {
-    //     console.log(err.message);
-    //   });
+  // console.log(currentUser);
+  // axios.get('/api/users/currentuser');
+  console.log(currentUser);
 
-    console.log(currentUser);
-    return <h1>Landing Page</h1>;
+  return <h1>Landing Page</h1>;
 };
 
-LandingPage.getInitialProps = async ({ req }) => {
-    // console.log(req.headers);
-    if (typeof window === 'undefined') {
-        const { data } = await axios.get(
-            // 'http://SERVICENAME.NAMESPACE.svc.cluster.local'
-            'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
-            {
-                headers: req.headers
-            }
-        );
+LandingPage.getInitialProps = async context => {
+  const client = buildClient(context);
+  const { data } = await client.get('/api/users/currentuser');
 
-        return data;
-        // we are on the server!
-    } else {
-        // we are on the browser
-        const { data } = await axios.get('/api/users/currentuser');
-        return data;
-    }
-
-    console.log('I WAS EXECUTED');
-    return {};
+  return data;
 };
-
 
 export default LandingPage;
-
-
-// At the time of writing, the service name for all platforms
-// (Windows, Mac, Linux) and Docker clients (Docker Desktop
-//     and Minikube) should be:
-
-// ingress-nginx-controller
