@@ -1,3 +1,7 @@
 a {
     text-decoration: none;
 }
+
+.nav-item{
+    margin-left: 2em;
+}
