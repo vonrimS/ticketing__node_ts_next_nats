@@ -4,6 +4,7 @@ build:
   local:
       push: false
   artifacts:
+
     - image: vonrims/ticketing_auth
       context: auth
       docker:
@@ -12,6 +13,7 @@ build:
         manual:
         - src: 'src/**/*.js'
           dest: .
+
     - image: vonrims/ticketing_client
       context: client
       docker:
@@ -19,6 +21,15 @@ build:
       sync:
         manual:
         - src: '**/*.js'
+          dest: .
+
+    - image: vonrims/ticketing_tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+        - src: 'src/**/*.js'
           dest: .
 
 
