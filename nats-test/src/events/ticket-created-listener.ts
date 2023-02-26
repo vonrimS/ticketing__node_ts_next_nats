@@ -1,8 +1,11 @@
 import { Message } from "node-nats-streaming";
 import { Listener } from './base-listener';
+import { TicketCreatedEvent } from "./ticket-created-event";
+import {Subjects} from './subjects';
 
-class TicketCreatedListener extends Listener {
-    subject = 'ticket:created';
+
+export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
+    readonly subject = Subjects.TicketCreated;
     queueGroupName = 'payments-service';
 
     onMessage(data: any, msg: Message) {
@@ -11,6 +14,3 @@ class TicketCreatedListener extends Listener {
         msg.ack();
     }
 }
-
-
-export { TicketCreatedListener };
