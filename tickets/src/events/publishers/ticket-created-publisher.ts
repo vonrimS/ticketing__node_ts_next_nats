@@ -1,5 +1,3 @@
-
-
 import {Publisher, Subjects, TicketCreatedEvent} from '@von_ticket/common';
 
 export class TicketCreatedPublisher extends Publisher<TicketCreatedEvent>{
