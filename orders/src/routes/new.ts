@@ -28,8 +28,6 @@ router.post('/api/orders', requireAuth, [
     }
 
 
-
-
     // Make sure that this thicket is not already reserved
     const isReserved = await ticket.isReserved();
 
